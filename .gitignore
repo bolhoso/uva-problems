@@ -2,3 +2,6 @@ main
 *.swp
 bin/
 *.class
+a.out
+main
+tst-main
