@@ -78,16 +78,42 @@ int valid (char *occ, int sz_occ, char *s) {
   }
 
   free (oc);
+
   return 1;
+}
+
+/*
+ * Build a dinamically allocated frequency table from the buffer
+ * s. The table is consisted only of lower case letters
+ */
+char *build_freq_table (char *s, int sz_table) {
+  if (!s || sz_table <= 0)
+    return NULL;
+
+  char *tab = (char *) malloc (sizeof (char) * sz_table);
+  bzero ((char *) tab, sizeof (char) * sz_table);
+  while (*s) {
+    tab[*s-'a']++;
+    s++;
+  }
+  return tab;
+}
+
+/*
+ * Gives you the next sequence generate from the string *s. Returns
+ * NULL when no such sequence exists (like, a 'zzzzz')
+ */
+char *next_seq (const char *s, char *freq_table, int sz_table, char *buf) {
+
+  return NULL;
 }
 
 /*
  * Find the next sequence of characters and return it, valid or not. Returns NO_SUCESSOR
  * when such sequence doesn't exist
  */
-char *next_seq (const char *s) {
-  char occurrences[SZ_ALPHABET];
-  bzero ((char *)occurrences, sizeof (char) * SZ_ALPHABET);
+char *next_seq2 (char *s) {
+  char occurrences[10];
 
   // First of all, find the greatest char and count occurrences
   int len = strlen (s), i;
@@ -137,7 +163,7 @@ int main () {
       return 0;
     }
 
-    printf ("%s\n", next_seq (buf));
+    printf ("%s\n", next_seq2 (buf));
   } while (1);
 
   return 0;
