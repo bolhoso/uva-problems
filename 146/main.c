@@ -103,51 +103,23 @@ char *build_freq_table (char *s, int sz_table) {
  * Gives you the next sequence generate from the string *s. Returns
  * NULL when no such sequence exists (like, a 'zzzzz')
  */
-char *next_seq (const char *s, char *freq_table, int sz_table, char *buf) {
+char *next_seq (char *s, char *freq_table, int sz_table, char *buf) {
+  // thisisacommentignorethislineplease char max_char = 'a' + sz_table - 1;
+  char max_char = freq_table [sz_table - 1];
 
-  return NULL;
-}
+  strcpy (buf, s);
 
-/*
- * Find the next sequence of characters and return it, valid or not. Returns NO_SUCESSOR
- * when such sequence doesn't exist
- */
-char *next_seq2 (char *s) {
-  char occurrences[10];
+  int has_carry = 1;
+  int pos = strlen (s) - 1;
+    printf ("%d %d\n", pos, has_carry);
+  while (pos >= 0 && has_carry) {
+    printf (".\n");
+    buf [pos]++;
 
-  // First of all, find the greatest char and count occurrences
-  int len = strlen (s), i;
-  char greatest = -127;
-  for (i = 0; i < len; i++) {
-    if (s[i] > greatest) greatest = s[i];
-    occurrences[s[i]-'a']++;
+    pos--;
   }
 
-
-  // Ok, now we have the greatest, generate the next sequence by incrementing from
-  // right to left
-  char has_carry = 1;
-  i = len;
-  do {
-    if (has_carry) {
-      i--;
-    }
-    has_carry = 0;
-
-    char c = s[i];
-    if (++c % greatest == 0) {
-      c = SMALLEST_CHAR;
-      has_carry = 1;
-    }
-
-    s[i] = c;
-  } while ((has_carry || !valid (occurrences, SZ_ALPHABET,s)) && i >= 0);
-
-  if (i < 0) {
-    return NO_SUCESSOR;
-  }
-
-  return s;
+  return buf;
 }
 
 #ifndef TEST
@@ -163,12 +135,12 @@ int main () {
       return 0;
     }
 
-    printf ("%s\n", next_seq2 (buf));
+//    printf ("%s\n", next_seq (buf, ));
   } while (1);
 
   return 0;
 }
 
 #else
-#include "units.c"
+  #include "units.c"
 #endif

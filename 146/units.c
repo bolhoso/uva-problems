@@ -55,6 +55,7 @@ void test_build_freq_table () {
 }
 
 // TODO: test the next sequence
+// TODO :we're not testing valid sequences!
 void test_next_seq () {
   // Frequency table and output buffer
   char *freq_table;
