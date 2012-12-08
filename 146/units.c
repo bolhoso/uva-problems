@@ -143,11 +143,10 @@ void test_next_valid () {
   }
 
   // test 1, a trivial sequence
-  /*{
+  {
     strcpy (orig, "ccccc");
     assert (next_valid(orig) == NULL);
   }
-  */
   
 }
 
