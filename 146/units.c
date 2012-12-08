@@ -146,12 +146,17 @@ void test_next_valid () {
   }
   
   {
+    strcpy (orig, "aaaaaaaaaaaaaaaaaaaba");
+    assert (strcmp (next_valid(orig), "aaaaaaaaaaaaaaaaaabaa") == 0);
+  }
+
+  {
     strcpy (orig, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaba");
     assert (strcmp (next_valid(orig), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaa") == 0);
   }
 
   {
-    strcpy (orig, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaba");
+    strcpy (orig, "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     assert (next_valid(orig) == NULL);
   }
 }

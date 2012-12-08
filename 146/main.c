@@ -39,7 +39,7 @@ No Successor
 #include <strings.h>
 #include <string.h>
 
-#define MAX 51
+#define MAX 52
 #define EOF_SEQUENCE "#"
 #define NO_SUCESSOR "No Successor"
 #define SMALLEST_CHAR 'a'
