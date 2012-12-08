@@ -123,7 +123,8 @@ char *next_seq (char *s, char *freq_table, int sz_table) {
     (*(buf+pos))++;
     if (buf[pos] > max_char) {
       has_carry = 1;
-      --(*(buf+pos));
+      *(buf+pos) = 'a';
+
     }
 
     pos--;
@@ -132,6 +133,20 @@ char *next_seq (char *s, char *freq_table, int sz_table) {
   if (pos < 0 && has_carry) {
     return NULL;
   }
+
+  return s;
+}
+
+char *next_valid (char *s) {
+  char *freq_table = build_freq_table (s, SZ_ALPHABET);
+
+  int is_valid = 0;
+  while (!is_valid && s) {
+    s = next_seq (s, freq_table, SZ_ALPHABET);
+    is_valid = valid (freq_table, SZ_ALPHABET, s);
+  }
+
+  free (freq_table);
 
   return s;
 }

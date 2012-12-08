@@ -73,7 +73,15 @@ void test_next_seq () {
   {
     strcpy (orig, "abab");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "abba") == 0);
     assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "abbb") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "baaa") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "baab") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "baba") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "babb") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "bbaa") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "bbab") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "bbba") == 0);
     assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "bbbb") == 0);
     free (freq_table);
   }
@@ -110,20 +118,31 @@ void test_next_seq () {
 }
 
 void test_next_valid () {
-  char *freq_table;
   char orig[SZ_BUF];
-  
-  // test 1, a trivial sequence
-  {
-    strcpy (orig, "abbac");
-    assert (strcmp (next_valid(orig), "baabc") == 0);
-  }
 
   // test 1, a trivial sequence
   {
+    strcpy (orig, "ab");
+    assert (strcmp (next_valid(orig), "ba") == 0);
+  }
+
+  // test 2, a trivial sequence
+  {
+    strcpy (orig, "abc");
+    assert (strcmp (next_valid(orig), "acb") == 0);
+  }
+  
+  {
+    strcpy (orig, "abbac");
+    assert (strcmp (next_valid(orig), "abbca") == 0);
+  }
+
+  // test 1, a trivial sequence
+  /*{
     strcpy (orig, "ccccc");
     assert (next_valid(orig) == NULL);
   }
+  */
   
 }
 
