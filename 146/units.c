@@ -14,6 +14,11 @@ void test_valid () {
   assert (valid  (oc, SZ_ALPHABET, "aaabc") && "Valid string");
   assert (!valid (oc, SZ_ALPHABET, "aabbc") && "Invalid string");
   assert (!valid (oc, SZ_ALPHABET, "abbc") && "Invalid string");
+
+  // ugly cases
+  assert (valid  (NULL, SZ_ALPHABET, "aaabc") == 0);
+  assert (valid  (oc, -1, "aaabc") == 0);
+  assert (valid  (oc, SZ_ALPHABET, NULL) == 0);
 }
 
 void test_build_freq_table () {

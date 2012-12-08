@@ -55,6 +55,10 @@ No Successor
  * by occ
  */
 int valid (char *occ, int sz_occ, char *s) {
+  if (!occ || !s || sz_occ <= 0) {
+    return 0;
+  }
+  
   char *oc = (char *) malloc (sizeof(char) * sz_occ);
   memcpy ((char *) oc, occ, sizeof(char) * sz_occ);
 
