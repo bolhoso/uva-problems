@@ -111,9 +111,7 @@ char *next_seq (char *s, char *freq_table, int sz_table, char *buf) {
 
   int has_carry = 1;
   int pos = strlen (s) - 1;
-    printf ("%d %d\n", pos, has_carry);
   while (pos >= 0 && has_carry) {
-    printf (".\n");
     buf [pos]++;
 
     pos--;
