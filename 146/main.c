@@ -103,21 +103,37 @@ char *build_freq_table (char *s, int sz_table) {
  * Gives you the next sequence generate from the string *s. Returns
  * NULL when no such sequence exists (like, a 'zzzzz')
  */
-char *next_seq (char *s, char *freq_table, int sz_table, char *buf) {
-  // thisisacommentignorethislineplease char max_char = 'a' + sz_table - 1;
-  char max_char = freq_table [sz_table - 1];
+char *next_seq (char *s, char *freq_table, int sz_table) {
 
-  strcpy (buf, s);
+  if (!s || !freq_table || sz_table <= 0) {
+    return NULL;
+  }
 
+  char max_char = 'a';
+  while (freq_table[max_char-'a'] > 0) max_char++;
+  max_char--;
+
+  char *buf = s;
   int has_carry = 1;
   int pos = strlen (s) - 1;
   while (pos >= 0 && has_carry) {
-    buf [pos]++;
+    has_carry = 0;
+
+    // if the current char is out of bound, then we have carry
+    (*(buf+pos))++;
+    if (buf[pos] > max_char) {
+      has_carry = 1;
+      --(*(buf+pos));
+    }
 
     pos--;
   }
 
-  return buf;
+  if (pos < 0 && has_carry) {
+    return NULL;
+  }
+
+  return s;
 }
 
 #ifndef TEST

@@ -59,49 +59,51 @@ void test_build_freq_table () {
 void test_next_seq () {
   // Frequency table and output buffer
   char *freq_table;
-  char buf[SZ_BUF];
-
-  // test 1, a trivial sequence
-  {
-    char *orig = "a";
-    freq_table = build_freq_table (orig, SZ_ALPHABET);
-    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET, buf), "b") == 0);
-    free (freq_table);
-  }
+  char orig[SZ_BUF];
   
   // test 1, a trivial sequence
   {
-    char *orig = "abba";
+    strcpy (orig, "abba");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
-    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET, buf), "abbb") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "abbb") == 0);
     free (freq_table);
   }
 
   // testing carry
   {
-    char *orig = "abab";
+    strcpy (orig, "abab");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
-    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET, buf), "abbb") == 0);
-    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET, buf), "bbbb") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "abbb") == 0);
+    assert (strcmp (next_seq(orig, freq_table, SZ_ALPHABET), "bbbb") == 0);
     free (freq_table);
   }
 
+  // test 1, a trivial sequence
+  {
+    strcpy (orig, "a");
+    freq_table = build_freq_table (orig, SZ_ALPHABET);
+    assert (next_seq(orig, freq_table, SZ_ALPHABET) == NULL);
+    free (freq_table);
+  }
+
+
   // no more sequences
   {
-    char *orig = "bbbb";
+    strcpy (orig, "bbbb");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
-    assert (next_seq(orig, freq_table, SZ_ALPHABET, buf) == NULL);
+    assert (next_seq(orig, freq_table, SZ_ALPHABET) == NULL);
     free (freq_table);
+
   }
 
   // itsnotokproblembro, test the bad-guy-cases
   {
-    char *orig = "bbbb";
+    strcpy (orig, "bbbb");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
 
-    assert (next_seq (NULL, NULL, 0, NULL) == NULL && "null table");
-    assert (next_seq (orig, freq_table, -1, buf) == NULL && "negative table size");
-    assert (next_seq (orig, freq_table, SZ_TABLE, NULL) == NULL && "null buffer");
+    assert (next_seq (NULL, NULL, 0) == NULL && "null table");
+    assert (next_seq (orig, freq_table, -1) == NULL && "negative table size");
+    assert (next_seq (orig, freq_table, SZ_TABLE) == NULL && "null buffer");
     free (freq_table);
   }
   
