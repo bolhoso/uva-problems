@@ -15,7 +15,7 @@ void test_valid () {
   assert (!valid (oc, SZ_ALPHABET, "aabbc") && "Invalid string");
   assert (!valid (oc, SZ_ALPHABET, "abbc") && "Invalid string");
 
-  // ugly cases
+  /* ugly cases */
   assert (valid  (NULL, SZ_ALPHABET, "aaabc") == 0);
   assert (valid  (oc, -1, "aaabc") == 0);
   assert (valid  (oc, SZ_ALPHABET, NULL) == 0);
@@ -36,7 +36,7 @@ void test_build_freq_table () {
   }
   free (tab1);
 
-  // test empty string
+  /* test empty string */
   char *buf2 = "";
   char *tab2 = build_freq_table (buf2, SZ_TABLE);
   assert (tab2 != NULL);
@@ -54,19 +54,17 @@ void test_build_freq_table () {
   }
   free (tab3);
 
-  // Test the null cases
+  /* Test the null cases */
   assert (build_freq_table (NULL, SZ_TABLE) == NULL);
   assert (build_freq_table ("aastg", 0) == NULL);
 }
 
-// TODO: test the next sequence
-// TODO :we're not testing valid sequences!
 void test_next_seq () {
-  // Frequency table and output buffer
+  /* Frequency table and output buffer */
   char *freq_table;
   char orig[SZ_BUF];
   
-  // test 1, a trivial sequence
+  /* test 1, a trivial sequence */
   {
     strcpy (orig, "abba");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
@@ -74,7 +72,7 @@ void test_next_seq () {
     free (freq_table);
   }
 
-  // testing carry
+  /* testing carry */
   {
     strcpy (orig, "abab");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
@@ -91,7 +89,7 @@ void test_next_seq () {
     free (freq_table);
   }
 
-  // test 1, a trivial sequence
+  /* test 1, a trivial sequence */
   {
     strcpy (orig, "a");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
@@ -100,7 +98,7 @@ void test_next_seq () {
   }
 
 
-  // no more sequences
+  /* no more sequences */
   {
     strcpy (orig, "bbbb");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
@@ -109,7 +107,7 @@ void test_next_seq () {
 
   }
 
-  // itsnotokproblembro, test the bad-guy-cases
+  /* itsnotokproblembro, test the bad-guy-cases */
   {
     strcpy (orig, "bbbb");
     freq_table = build_freq_table (orig, SZ_ALPHABET);
@@ -125,13 +123,13 @@ void test_next_seq () {
 void test_next_valid () {
   char orig[SZ_BUF];
 
-  // test 1, a trivial sequence
+  /* test 1, a trivial sequence */
   {
     strcpy (orig, "ab");
     assert (strcmp (next_valid(orig), "ba") == 0);
   }
 
-  // test 2, a trivial sequence
+  /* test 2, a trivial sequence */
   {
     strcpy (orig, "abc");
     assert (strcmp (next_valid(orig), "acb") == 0);
@@ -142,12 +140,20 @@ void test_next_valid () {
     assert (strcmp (next_valid(orig), "abbca") == 0);
   }
 
-  // test 1, a trivial sequence
   {
     strcpy (orig, "ccccc");
     assert (next_valid(orig) == NULL);
   }
   
+  {
+    strcpy (orig, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaba");
+    assert (strcmp (next_valid(orig), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaa") == 0);
+  }
+
+  {
+    strcpy (orig, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaba");
+    assert (next_valid(orig) == NULL);
+  }
 }
 
 int main () {
