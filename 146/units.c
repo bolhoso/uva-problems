@@ -109,10 +109,29 @@ void test_next_seq () {
   
 }
 
+void test_next_valid () {
+  char *freq_table;
+  char orig[SZ_BUF];
+  
+  // test 1, a trivial sequence
+  {
+    strcpy (orig, "abbac");
+    assert (strcmp (next_valid(orig), "baabc") == 0);
+  }
+
+  // test 1, a trivial sequence
+  {
+    strcpy (orig, "ccccc");
+    assert (next_valid(orig) == NULL);
+  }
+  
+}
+
 int main () {
   test_valid();
   test_build_freq_table();
   test_next_seq();
+  test_next_valid();
 
   printf ("Hooray! All tests passed\n");
 
