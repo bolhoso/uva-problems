@@ -36,6 +36,7 @@ No Successor
 *******************************************************************************/
 #include <malloc.h>
 #include <stdio.h>
+#include <strings.h>
 #include <string.h>
 
 #define MAX 51
@@ -44,10 +45,10 @@ No Successor
 #define SMALLEST_CHAR 'a'
 #define SZ_ALPHABET 26
 
-//================================================================================
-// Assuming the sequence is composed by contigous characters
-// Do otherwise on wrong answer
-//================================================================================
+/*********************************************************************************
+ Assuming the sequence is composed by contigous characters
+ Do otherwise on wrong answer
+*********************************************************************************/
 
 /*
  * Given an array of occurrences (where 0 corresponds to letter a, 1 to b and so 
@@ -72,7 +73,7 @@ int valid (char *occ, int sz_occ, char *s) {
     s++;
   }
 
-  // Check for letters remaining 
+  /* Check for letters remaining  */
   int i;
   for (i = 0; i < sz_occ; i++) {
     if (oc[i] > 0) {
@@ -123,7 +124,7 @@ char *next_seq (char *s, char *freq_table, int sz_table) {
   while (pos >= 0 && has_carry) {
     has_carry = 0;
 
-    // if the current char is out of bound, then we have carry
+    /* if the current char is out of bound, then we have carry */
     (*(buf+pos))++;
     if (buf[pos] > max_char) {
       has_carry = 1;
@@ -161,14 +162,19 @@ int main () {
   char buf[MAX];
 
   do {
-    // Read, strip \n and check for the end #
+    /* Read, strip \n and check for the end # */
     fgets (buf, 50, stdin);
     buf[strlen(buf)-1] = '\0';
     if (strcmp (buf, EOF_SEQUENCE) == 0) {
       return 0;
     }
 
-//    printf ("%s\n", next_seq (buf, ));
+    char *s = next_valid (buf);
+    if (!s) {
+      printf ("No Successor\n");
+    } else {
+      printf ("%s\n", s);
+    }
   } while (1);
 
   return 0;
